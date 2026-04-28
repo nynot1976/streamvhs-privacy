@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StreamVHS — Tu cliente de streaming personal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080808;
+  --surface: #111;
+  --card: #161616;
+  --cyan: #00c8b4;
+  --cyan2: #00e5ce;
+  --white: #f0f0f0;
+  --gray: #888;
+  --gray2: #333;
+  --yellow: #ffc840;
+  --red: #ff4444;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* SCANLINES */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px);
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 3rem;
+  background: rgba(8,8,8,0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #1a1a1a;
+}
+
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: 0.1em;
+  color: var(--white);
+}
+
+.nav-logo span { color: var(--cyan); }
+
+.nav-links { display: flex; gap: 2rem; }
+.nav-links a {
+  color: var(--gray);
+  text-decoration: none;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--cyan); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6rem 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 60%, rgba(0,200,180,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 30% at 20% 20%, rgba(0,200,180,0.03) 0%, transparent 60%);
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,200,180,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,200,180,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%);
+}
+
+.hero-content { position: relative; z-index: 1; max-width: 800px; }
+
+.hero-badge {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  color: var(--cyan);
+  border: 1px solid rgba(0,200,180,0.3);
+  padding: 0.4rem 1rem;
+  margin-bottom: 2rem;
+  animation: fadeIn 0.6s ease both;
+}
+
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(5rem, 15vw, 10rem);
+  line-height: 0.9;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+  animation: fadeIn 0.6s 0.1s ease both;
+}
+
+.hero-title .vhs {
+  color: var(--cyan);
+  position: relative;
+}
+
+.hero-title .vhs::after {
+  content: 'VHS';
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  color: rgba(255,68,68,0.3);
+  z-index: -1;
+}
+
+.hero-sub {
+  font-size: 1.1rem;
+  color: var(--gray);
+  margin-bottom: 3rem;
+  line-height: 1.6;
+  animation: fadeIn 0.6s 0.2s ease both;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeIn 0.6s 0.3s ease both;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--cyan);
+  color: #000;
+  padding: 1rem 2rem;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary:hover {
+  background: var(--cyan2);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: transparent;
+  color: var(--white);
+  padding: 1rem 2rem;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  border: 1px solid var(--gray2);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+
+.hero-stats {
+  display: flex;
+  gap: 3rem;
+  justify-content: center;
+  margin-top: 4rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--gray2);
+  animation: fadeIn 0.6s 0.4s ease both;
+}
+
+.stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  color: var(--cyan);
+  letter-spacing: 0.05em;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--gray);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* FEATURES */
+.features {
+  padding: 6rem 3rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  color: var(--cyan);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  letter-spacing: 0.05em;
+  margin-bottom: 3rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1px;
+  background: var(--gray2);
+  border: 1px solid var(--gray2);
+}
+
+.feature-card {
+  background: var(--card);
+  padding: 2.5rem;
+  transition: background 0.2s;
+}
+
+.feature-card:hover { background: #1a1a1a; }
+
+.feature-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.feature-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.8rem;
+  color: var(--white);
+}
+
+.feature-desc {
+  font-size: 0.9rem;
+  color: var(--gray);
+  line-height: 1.7;
+}
+
+/* DOWNLOAD */
+.download {
+  padding: 6rem 3rem;
+  background: var(--surface);
+  border-top: 1px solid var(--gray2);
+  border-bottom: 1px solid var(--gray2);
+}
+
+.download-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.download-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.download-card {
+  background: var(--card);
+  border: 1px solid var(--gray2);
+  padding: 2rem;
+  position: relative;
+  transition: border-color 0.2s;
+}
+
+.download-card:hover { border-color: var(--cyan); }
+
+.download-card.featured {
+  border-color: var(--cyan);
+}
+
+.download-card.featured::before {
+  content: 'MÁS POPULAR';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--cyan);
+  color: #000;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  padding: 0.3rem 1rem;
+}
+
+.platform-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.platform-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.3rem;
+}
+
+.platform-version {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--gray);
+  margin-bottom: 1.5rem;
+}
+
+.download-btn {
+  display: block;
+  width: 100%;
+  background: var(--cyan);
+  color: #000;
+  border: none;
+  padding: 0.9rem;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  transition: background 0.2s;
+  margin-bottom: 0.8rem;
+}
+
+.download-btn:hover { background: var(--cyan2); }
+
+.download-btn.outline {
+  background: transparent;
+  border: 1px solid var(--gray2);
+  color: var(--gray);
+}
+
+.download-btn.outline:hover {
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+
+/* PRICING */
+.pricing {
+  padding: 6rem 3rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.price-card {
+  background: var(--card);
+  border: 1px solid var(--gray2);
+  padding: 2.5rem;
+  position: relative;
+  transition: border-color 0.2s;
+}
+
+.price-card.featured {
+  border-color: var(--cyan);
+}
+
+.price-card.featured::before {
+  content: 'AHORRA 2 MESES';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--cyan);
+  color: #000;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  padding: 0.3rem 1rem;
+  white-space: nowrap;
+}
+
+.price-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--gray);
+  margin-bottom: 1rem;
+}
+
+.price-amount {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 4rem;
+  color: var(--white);
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.price-period {
+  font-size: 0.85rem;
+  color: var(--gray);
+  margin-bottom: 2rem;
+}
+
+.price-features {
+  list-style: none;
+  margin-bottom: 2rem;
+}
+
+.price-features li {
+  font-size: 0.9rem;
+  color: var(--gray);
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.price-features li::before {
+  content: '✓';
+  color: var(--cyan);
+  font-weight: 500;
+}
+
+/* PAYMENT */
+.payment {
+  padding: 6rem 3rem;
+  background: var(--surface);
+  border-top: 1px solid var(--gray2);
+}
+
+.payment-inner {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.payment-methods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin: 3rem 0;
+}
+
+.pay-method {
+  background: var(--card);
+  border: 1px solid var(--gray2);
+  padding: 1.2rem 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.9rem;
+  color: var(--white);
+  cursor: pointer;
+  transition: border-color 0.2s;
+  text-decoration: none;
+}
+
+.pay-method:hover { border-color: var(--cyan); }
+
+.pay-method .pm-icon { font-size: 1.5rem; }
+
+.pay-note {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--gray);
+  line-height: 1.8;
+  background: var(--card);
+  border: 1px solid var(--gray2);
+  border-left: 3px solid var(--cyan);
+  padding: 1.5rem;
+  text-align: left;
+  margin-top: 2rem;
+}
+
+/* FOOTER */
+footer {
+  padding: 3rem;
+  border-top: 1px solid var(--gray2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: gap;
+}
+
+.footer-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.1em;
+}
+
+.footer-logo span { color: var(--cyan); }
+
+.footer-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.footer-links a {
+  font-size: 0.8rem;
+  color: var(--gray);
+  text-decoration: none;
+}
+
+.footer-links a:hover { color: var(--cyan); }
+
+.footer-copy {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--gray);
+}
+
+/* MODAL */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.modal-overlay.active { display: flex; }
+
+.modal {
+  background: var(--card);
+  border: 1px solid var(--gray2);
+  max-width: 480px;
+  width: 100%;
+  padding: 2.5rem;
+}
+
+.modal-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+
+.modal-sub {
+  font-size: 0.85rem;
+  color: var(--gray);
+  margin-bottom: 2rem;
+}
+
+.modal input {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--gray2);
+  color: var(--white);
+  padding: 0.9rem 1rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.modal input:focus { border-color: var(--cyan); }
+
+.modal-plan {
+  background: var(--surface);
+  border: 1px solid var(--cyan);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-plan-name { font-weight: 500; }
+.modal-plan-price { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--cyan); }
+
+.modal-pay-btns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.modal-pay-btn {
+  background: var(--surface);
+  border: 1px solid var(--gray2);
+  color: var(--white);
+  padding: 0.8rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.modal-pay-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+.modal-pay-btn.selected { border-color: var(--cyan); background: rgba(0,200,180,0.1); color: var(--cyan); }
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--gray);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modal { position: relative; }
+
+.bizum-info {
+  display: none;
+  background: var(--surface);
+  border: 1px solid var(--gray2);
+  border-left: 3px solid var(--cyan);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--gray);
+  line-height: 1.8;
+}
+
+.bizum-info.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+  .features, .pricing, .payment { padding: 4rem 1.5rem; }
+  .download { padding: 4rem 1.5rem; }
+  footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Stream<span>VHS</span></div>
+  <div class="nav-links">
+    <a href="#descargas">Descargar</a>
+    <a href="#precios">Precios</a>
+    <a href="#pago">Pagar</a>
+    <a href="https://nynot1976.github.io/streamvhs-privacy/privacy-policy.html" target="_blank">Privacidad</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">▶ CLIENTE DE STREAMING PERSONAL</div>
+    <h1 class="hero-title">Stream<span class="vhs">VHS</span></h1>
+    <p class="hero-sub">Conecta tu servidor Jellyfin, Emby o Plex y disfruta de tu colección personal<br>en cualquier dispositivo. Sin límites. Sin publicidad.</p>
+    <div class="hero-buttons">
+      <a href="#descargas" class="btn-primary">⬇ Descargar ahora</a>
+      <a href="#precios" class="btn-secondary">Ver precios</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">3</div>
+        <div class="stat-label">Plataformas</div>
+      </div>
+      <div>
+        <div class="stat-num">0</div>
+        <div class="stat-label">Publicidad</div>
+      </div>
+      <div>
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Contenido</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="section-label">// características</div>
+  <h2 class="section-title">Todo lo que necesitas</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">📡</div>
+      <div class="feature-title">Multi-servidor</div>
+      <p class="feature-desc">Conecta y gestiona múltiples servidores Jellyfin, Emby y Plex desde una sola app.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎬</div>
+      <div class="feature-title">Series y películas</div>
+      <p class="feature-desc">Navega por temporadas y episodios. Reproduce directamente con VLC o MX Player.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔍</div>
+      <div class="feature-title">Búsqueda rápida</div>
+      <p class="feature-desc">Encuentra cualquier película o serie al instante en tu biblioteca personal.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📱</div>
+      <div class="feature-title">Android & Windows</div>
+      <p class="feature-desc">Disponible para móvil, tablet y escritorio. Una sola suscripción para todos tus dispositivos.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <div class="feature-title">Rápido y ligero</div>
+      <p class="feature-desc">Menos de 3MB. Sin bloatware. Interfaz limpia optimizada para catálogos grandes.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔒</div>
+      <div class="feature-title">Privado y seguro</div>
+      <p class="feature-desc">Tus datos nunca salen de tus servidores. Sin tracking, sin telemetría.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOADS -->
+<section class="download" id="descargas">
+  <div class="download-inner">
+    <div class="section-label">// descargas</div>
+    <h2 class="section-title">Elige tu plataforma</h2>
+    <div class="download-grid">
+      <div class="download-card featured">
+        <div class="platform-icon">🤖</div>
+        <div class="platform-name">Android</div>
+        <div class="platform-version">v1.0.2 · APK · 2.7 MB</div>
+        <a href="streamvhs-android.apk" class="download-btn">⬇ Descargar APK</a>
+        <a href="https://play.google.com/store/apps/details?id=com.streamvhs.tv" class="download-btn outline" target="_blank">Google Play (próximamente)</a>
+      </div>
+      <div class="download-card">
+        <div class="platform-icon">🪟</div>
+        <div class="platform-name">Windows</div>
+        <div class="platform-version">v1.0.0 · EXE · Próximamente</div>
+        <button class="download-btn outline" disabled style="cursor:not-allowed;opacity:0.5">Próximamente</button>
+      </div>
+      <div class="download-card">
+        <div class="platform-icon">🍎</div>
+        <div class="platform-name">iOS / macOS</div>
+        <div class="platform-version">En desarrollo</div>
+        <button class="download-btn outline" disabled style="cursor:not-allowed;opacity:0.5">En desarrollo</button>
+      </div>
+    </div>
+    <p style="margin-top:1.5rem;font-size:0.8rem;color:var(--gray);font-family:'DM Mono',monospace;">
+      ⚠ Para instalar el APK en Android: Ajustes → Seguridad → Permitir fuentes desconocidas
+    </p>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="precios">
+  <div class="section-label">// precios</div>
+  <h2 class="section-title">Simple y transparente</h2>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-label">MENSUAL</div>
+      <div class="price-amount">0,99<span style="font-size:1.5rem">€</span></div>
+      <div class="price-period">por mes · renovación automática</div>
+      <ul class="price-features">
+        <li>Acceso completo a la app</li>
+        <li>Android + Windows</li>
+        <li>Actualizaciones incluidas</li>
+        <li>Soporte por email</li>
+      </ul>
+      <button class="download-btn" onclick="openModal('monthly')">Suscribirse — 0,99€/mes</button>
+    </div>
+    <div class="price-card featured">
+      <div class="price-label">ANUAL</div>
+      <div class="price-amount">9,99<span style="font-size:1.5rem">€</span></div>
+      <div class="price-period">por año · equivale a 0,83€/mes</div>
+      <ul class="price-features">
+        <li>Acceso completo a la app</li>
+        <li>Android + Windows</li>
+        <li>Actualizaciones incluidas</li>
+        <li>Soporte prioritario</li>
+      </ul>
+      <button class="download-btn" onclick="openModal('yearly')">Suscribirse — 9,99€/año</button>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENT INFO -->
+<section class="payment" id="pago">
+  <div class="payment-inner">
+    <div class="section-label">// métodos de pago</div>
+    <h2 class="section-title" style="text-align:center">Paga como prefieras</h2>
+    <div class="payment-methods">
+      <div class="pay-method"><span class="pm-icon">💳</span> Tarjeta</div>
+      <div class="pay-method"><span class="pm-icon">🅿️</span> PayPal</div>
+      <div class="pay-method"><span class="pm-icon">📱</span> Bizum</div>
+      <div class="pay-method"><span class="pm-icon">🏦</span> Transferencia</div>
+      <div class="pay-method"><span class="pm-icon">🪙</span> Crypto</div>
+    </div>
+    <div class="pay-note">
+      📧 Para completar tu compra, envía un email a <strong style="color:var(--cyan)">nynot678@gmail.com</strong> indicando:<br>
+      — Plan elegido (mensual/anual)<br>
+      — Método de pago preferido<br>
+      — Tu email para recibir la licencia<br><br>
+      Recibirás tu clave de activación en menos de 24 horas.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Stream<span>VHS</span></div>
+  <div class="footer-links">
+    <a href="https://nynot1976.github.io/streamvhs-privacy/privacy-policy.html" target="_blank">Privacidad</a>
+    <a href="mailto:nynot678@gmail.com">Contacto</a>
+  </div>
+  <div class="footer-copy">© 2026 StreamVHS</div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-title">Completar compra</div>
+    <div class="modal-sub">Elige tu método de pago preferido</div>
+
+    <div class="modal-plan">
+      <div class="modal-plan-name" id="modal-plan-name">Plan mensual</div>
+      <div class="modal-plan-price" id="modal-plan-price">0,99€/mes</div>
+    </div>
+
+    <input type="email" id="modal-email" placeholder="Tu email (para recibir la licencia)">
+
+    <div class="modal-pay-btns">
+      <button class="modal-pay-btn" onclick="selectPay(this,'paypal')">🅿️ PayPal</button>
+      <button class="modal-pay-btn" onclick="selectPay(this,'bizum')">📱 Bizum</button>
+      <button class="modal-pay-btn" onclick="selectPay(this,'transferencia')">🏦 Transferencia</button>
+      <button class="modal-pay-btn" onclick="selectPay(this,'crypto')">🪙 Crypto</button>
+    </div>
+
+    <div class="bizum-info" id="bizum-info">
+      📱 Envía el pago por Bizum al número:<br>
+      <strong style="color:var(--cyan);font-size:1.1rem">+34 XXX XXX XXX</strong><br>
+      Concepto: StreamVHS + tu email
+    </div>
+
+    <div class="bizum-info" id="transfer-info" style="display:none">
+      🏦 Transferencia bancaria:<br>
+      IBAN: <strong style="color:var(--cyan)">ES00 0000 0000 0000 0000 0000</strong><br>
+      Concepto: StreamVHS + tu email
+    </div>
+
+    <button class="download-btn" id="modal-confirm-btn" onclick="confirmPurchase()" style="margin-top:0.5rem">
+      Confirmar y enviar solicitud
+    </button>
+
+    <p style="font-size:0.75rem;color:var(--gray);margin-top:1rem;font-family:'DM Mono',monospace;text-align:center">
+      Recibirás tu licencia en menos de 24 horas
+    </p>
+  </div>
+</div>
+
+<script>
+let currentPlan = 'monthly';
+let selectedPayMethod = '';
+
+function openModal(plan) {
+  currentPlan = plan;
+  document.getElementById('modal-plan-name').textContent = plan === 'monthly' ? 'Plan mensual' : 'Plan anual';
+  document.getElementById('modal-plan-price').textContent = plan === 'monthly' ? '0,99€/mes' : '9,99€/año';
+  document.getElementById('modal').classList.add('active');
+  selectedPayMethod = '';
+  document.querySelectorAll('.modal-pay-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('bizum-info').classList.remove('active');
+  document.getElementById('transfer-info').style.display = 'none';
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('active');
+}
+
+function selectPay(btn, method) {
+  selectedPayMethod = method;
+  document.querySelectorAll('.modal-pay-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  document.getElementById('bizum-info').classList.toggle('active', method === 'bizum');
+  document.getElementById('transfer-info').style.display = method === 'transferencia' ? 'block' : 'none';
+}
+
+function confirmPurchase() {
+  const email = document.getElementById('modal-email').value;
+  if (!email || !email.includes('@')) {
+    alert('Por favor introduce tu email');
+    return;
+  }
+  if (!selectedPayMethod) {
+    alert('Por favor selecciona un método de pago');
+    return;
+  }
+  const plan = currentPlan === 'monthly' ? 'Plan Mensual (0,99€/mes)' : 'Plan Anual (9,99€/año)';
+  const subject = encodeURIComponent('Suscripción StreamVHS — ' + plan);
+  const body = encodeURIComponent(
+    'Hola,\n\nQuiero suscribirme a StreamVHS.\n\n' +
+    'Plan: ' + plan + '\n' +
+    'Método de pago: ' + selectedPayMethod + '\n' +
+    'Email: ' + email + '\n\n' +
+    'Gracias.'
+  );
+  window.location.href = 'mailto:nynot678@gmail.com?subject=' + subject + '&body=' + body;
+  closeModal();
+}
+
+document.getElementById('modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+</script>
+
+</body>
+</html>
