@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política de Privacidad — StreamVHS</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap');
+
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --border: #222222;
+    --accent: #ff3b00;
+    --accent2: #ffcc00;
+    --text: #e8e8e8;
+    --muted: #666666;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* VHS scanline effect */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.03) 2px,
+      rgba(0,0,0,0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 2rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::after {
+    content: 'VHS';
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 8rem;
+    color: rgba(255,59,0,0.04);
+    letter-spacing: 0.2em;
+    pointer-events: none;
+  }
+
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.4rem;
+    letter-spacing: 0.15em;
+    color: var(--text);
+  }
+
+  .logo span {
+    color: var(--accent);
+  }
+
+  .tag {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.2rem 0.6rem;
+    margin-left: 1rem;
+    vertical-align: middle;
+    position: relative;
+    top: -4px;
+  }
+
+  main {
+    padding: 4rem 0 6rem;
+  }
+
+  .page-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+
+  .page-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-meta span {
+    color: var(--accent2);
+  }
+
+  section {
+    margin-bottom: 2.5rem;
+    padding: 2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    position: relative;
+  }
+
+  section::before {
+    content: attr(data-num);
+    position: absolute;
+    top: -1px;
+    right: 1.5rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    color: rgba(255,59,0,0.06);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  p {
+    font-size: 0.95rem;
+    color: #c8c8c8;
+    margin-bottom: 0.8rem;
+  }
+
+  p:last-child { margin-bottom: 0; }
+
+  ul {
+    list-style: none;
+    margin: 0.5rem 0;
+  }
+
+  ul li {
+    font-size: 0.95rem;
+    color: #c8c8c8;
+    padding: 0.3rem 0 0.3rem 1.5rem;
+    position: relative;
+  }
+
+  ul li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.7rem;
+    top: 0.45rem;
+  }
+
+  .contact-box {
+    background: rgba(255,59,0,0.05);
+    border: 1px solid rgba(255,59,0,0.2);
+    padding: 1.5rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--text);
+    margin-top: 1rem;
+  }
+
+  .contact-box a {
+    color: var(--accent2);
+    text-decoration: none;
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 0;
+    text-align: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  footer strong {
+    color: var(--accent);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="logo">Stream<span>VHS</span> <span class="tag">Privacy</span></div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <h1 class="page-title">Política de Privacidad</h1>
+    <p class="page-meta">Última actualización: <span>28 de abril de 2026</span> &nbsp;·&nbsp; Versión <span>1.0</span></p>
+
+    <section data-num="01">
+      <h2>Introducción</h2>
+      <p>StreamVHS ("nosotros", "nuestro" o "la aplicación") se compromete a proteger la privacidad de sus usuarios. Esta Política de Privacidad describe cómo recopilamos, usamos y protegemos la información personal cuando utilizas nuestra aplicación móvil StreamVHS.</p>
+      <p>Al usar StreamVHS, aceptas las prácticas descritas en esta política.</p>
+    </section>
+
+    <section data-num="02">
+      <h2>Información que recopilamos</h2>
+      <p>Recopilamos únicamente la información necesaria para el funcionamiento de la aplicación:</p>
+      <ul>
+        <li><strong>Nombre de usuario:</strong> utilizado para identificarte dentro de la aplicación.</li>
+        <li><strong>Contraseña:</strong> almacenada de forma cifrada para autenticar tu acceso.</li>
+      </ul>
+      <p>No recopilamos datos de localización, contactos, cámara, micrófono ni ningún otro dato personal adicional.</p>
+    </section>
+
+    <section data-num="03">
+      <h2>Cómo usamos tu información</h2>
+      <p>La información recopilada se utiliza exclusivamente para:</p>
+      <ul>
+        <li>Permitir el acceso a tu cuenta personal en StreamVHS.</li>
+        <li>Mantener la sesión activa durante el uso de la aplicación.</li>
+        <li>Garantizar la seguridad de tu cuenta.</li>
+      </ul>
+      <p>No vendemos, alquilamos ni compartimos tus datos personales con terceros.</p>
+    </section>
+
+    <section data-num="04">
+      <h2>Almacenamiento y seguridad</h2>
+      <p>Tu contraseña se almacena cifrada y nunca en texto plano. Aplicamos medidas de seguridad técnicas y organizativas razonables para proteger tu información contra acceso no autorizado, pérdida o alteración.</p>
+    </section>
+
+    <section data-num="05">
+      <h2>Retención de datos</h2>
+      <p>Conservamos tus datos mientras mantengas una cuenta activa en StreamVHS. Si deseas eliminar tu cuenta y todos los datos asociados, puedes solicitarlo contactándonos a través del correo indicado al final de esta política.</p>
+    </section>
+
+    <section data-num="06">
+      <h2>Tus derechos</h2>
+      <p>Como usuario tienes derecho a:</p>
+      <ul>
+        <li>Acceder a los datos personales que tenemos sobre ti.</li>
+        <li>Solicitar la corrección de datos incorrectos.</li>
+        <li>Solicitar la eliminación de tu cuenta y datos personales.</li>
+        <li>Oponerte al tratamiento de tus datos.</li>
+      </ul>
+      <p>Para ejercer cualquiera de estos derechos, contáctanos por correo electrónico.</p>
+    </section>
+
+    <section data-num="07">
+      <h2>Menores de edad</h2>
+      <p>StreamVHS no está dirigida a menores de 13 años. No recopilamos intencionadamente información personal de menores. Si eres padre o tutor y crees que tu hijo nos ha proporcionado datos personales, contáctanos para eliminarlos.</p>
+    </section>
+
+    <section data-num="08">
+      <h2>Cambios en esta política</h2>
+      <p>Podemos actualizar esta Política de Privacidad ocasionalmente. Te notificaremos cualquier cambio significativo a través de la aplicación. Te recomendamos revisar esta página periódicamente.</p>
+    </section>
+
+    <section data-num="09">
+      <h2>Contacto</h2>
+      <p>Si tienes preguntas o solicitudes sobre esta Política de Privacidad, puedes contactarnos en:</p>
+      <div class="contact-box">
+        StreamVHS<br>
+        Email: <a href="mailto:nynot678@gmail.com">nynot678@gmail.com</a>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <strong>StreamVHS</strong> &nbsp;·&nbsp; Política de Privacidad &nbsp;·&nbsp; © 2026
+  </div>
+</footer>
+
+</body>
+</html>
