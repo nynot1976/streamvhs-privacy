@@ -7,39 +7,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #080808;
-  --surface: #111;
-  --card: #161616;
-  --border: #222;
-  --cyan: #00c8b4;
-  --cyan2: #00e5ce;
-  --white: #f0f0f0;
-  --gray: #888;
-  --gray2: #333;
-  --green: #00c87a;
-  --red: #ff4455;
-  --yellow: #ffc840;
-  --SERVER: "https://streamvhs-backend-production.up.railway.app";
+  --bg: #080808; --surface: #111; --card: #161616; --border: #222;
+  --cyan: #00c8b4; --cyan2: #00e5ce; --white: #f0f0f0; --gray: #888; --gray2: #333;
+  --green: #00c87a; --red: #ff4455; --yellow: #ffc840;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { background: var(--bg); color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; min-height: 100vh; }
-
-/* LOGIN */
-#login-screen {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-}
-.login-box {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-top: 3px solid var(--cyan);
-  padding: 3rem;
-  width: 100%;
-  max-width: 400px;
-}
+#login-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem; }
+.login-box { background: var(--card); border: 1px solid var(--border); border-top: 3px solid var(--cyan); padding: 3rem; width: 100%; max-width: 400px; }
 .login-logo { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; letter-spacing: 0.1em; margin-bottom: 0.3rem; }
 .login-logo span { color: var(--cyan); }
 .login-sub { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--gray); letter-spacing: 0.2em; margin-bottom: 2.5rem; }
@@ -51,12 +26,7 @@ input[type=password], input[type=text], input[type=email] {
   outline: none; transition: border-color 0.2s; margin-bottom: 1.5rem;
 }
 input:focus { border-color: var(--cyan); }
-.btn {
-  display: block; width: 100%; background: var(--cyan); color: #000;
-  border: none; padding: 0.9rem; font-family: 'DM Sans', sans-serif;
-  font-weight: 500; font-size: 0.9rem; letter-spacing: 0.05em;
-  cursor: pointer; transition: background 0.2s;
-}
+.btn { display: block; width: 100%; background: var(--cyan); color: #000; border: none; padding: 0.9rem; font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 0.9rem; letter-spacing: 0.05em; cursor: pointer; transition: background 0.2s; }
 .btn:hover { background: var(--cyan2); }
 .btn.outline { background: transparent; border: 1px solid var(--border); color: var(--gray); }
 .btn.outline:hover { border-color: var(--cyan); color: var(--cyan); }
@@ -64,26 +34,13 @@ input:focus { border-color: var(--cyan); }
 .btn.danger:hover { background: #ff2233; }
 .btn.small { padding: 0.5rem 1rem; font-size: 0.8rem; width: auto; display: inline-block; }
 .error-msg { color: var(--red); font-family: 'DM Mono', monospace; font-size: 0.75rem; margin-top: 1rem; }
-
-/* MAIN */
 #main-screen { display: none; }
-
-header {
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  padding: 1rem 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
 .header-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.1em; }
 .header-logo span { color: var(--cyan); }
 .header-right { display: flex; align-items: center; gap: 1.5rem; }
 .header-tag { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--cyan); border: 1px solid rgba(0,200,180,0.3); padding: 0.3rem 0.8rem; }
-
 .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
-
-/* STATS */
 .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2.5rem; }
 .stat-card { background: var(--card); border: 1px solid var(--border); padding: 1.5rem; }
 .stat-card-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; letter-spacing: 0.05em; line-height: 1; }
@@ -92,50 +49,25 @@ header {
 .stat-card.expired .stat-card-num { color: var(--red); }
 .stat-card.total .stat-card-num { color: var(--cyan); }
 .stat-card.monthly .stat-card-num { color: var(--yellow); }
-
-/* ACTIVATE FORM */
 .section-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.08em; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
 .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-
 .activate-form { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--cyan); padding: 2rem; margin-bottom: 2.5rem; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 1rem; align-items: end; }
 .form-group { display: flex; flex-direction: column; }
 .form-group label { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--cyan); margin-bottom: 6px; }
-select {
-  background: var(--surface); border: 1px solid var(--border);
-  color: var(--white); padding: 0.8rem 1rem;
-  font-family: 'DM Mono', monospace; font-size: 0.85rem;
-  outline: none; cursor: pointer;
-}
+select { background: var(--surface); border: 1px solid var(--border); color: var(--white); padding: 0.8rem 1rem; font-family: 'DM Mono', monospace; font-size: 0.85rem; outline: none; cursor: pointer; }
 select:focus { border-color: var(--cyan); }
-.activate-result {
-  margin-top: 1.5rem;
-  display: none;
-  background: var(--surface);
-  border: 1px solid var(--green);
-  border-left: 3px solid var(--green);
-  padding: 1.2rem;
-  font-family: 'DM Mono', monospace;
-  font-size: 0.8rem;
-  color: var(--white);
-  line-height: 2;
-}
+.activate-result { margin-top: 1.5rem; display: none; background: var(--surface); border: 1px solid var(--green); border-left: 3px solid var(--green); padding: 1.2rem; font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--white); line-height: 2; }
 .key-display { font-size: 1.1rem; color: var(--cyan); letter-spacing: 0.1em; }
-
-/* TABLE */
 .table-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 1rem; }
 .search-box { background: var(--surface); border: 1px solid var(--border); color: var(--white); padding: 0.6rem 1rem; font-family: 'DM Mono', monospace; font-size: 0.8rem; outline: none; width: 280px; }
 .search-box:focus { border-color: var(--cyan); }
-
 table { width: 100%; border-collapse: collapse; }
 thead { background: var(--surface); }
 th { padding: 0.8rem 1rem; text-align: left; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; color: var(--gray); border-bottom: 1px solid var(--border); }
 td { padding: 0.9rem 1rem; font-size: 0.85rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
 tr:hover td { background: rgba(255,255,255,0.02); }
-.badge {
-  display: inline-block; padding: 0.2rem 0.6rem;
-  font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em;
-}
+.badge { display: inline-block; padding: 0.2rem 0.6rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; }
 .badge.active { background: rgba(0,200,122,0.15); color: var(--green); border: 1px solid rgba(0,200,122,0.3); }
 .badge.expired { background: rgba(255,68,85,0.15); color: var(--red); border: 1px solid rgba(255,68,85,0.3); }
 .badge.monthly { background: rgba(255,200,64,0.15); color: var(--yellow); border: 1px solid rgba(255,200,64,0.3); }
@@ -144,7 +76,6 @@ tr:hover td { background: rgba(255,255,255,0.02); }
 .key-cell { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--cyan); }
 .days-cell { font-family: 'DM Mono', monospace; font-size: 0.8rem; }
 .toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--green); color: #000; padding: 0.8rem 1.5rem; font-family: 'DM Mono', monospace; font-size: 0.8rem; z-index: 999; display: none; }
-
 @media (max-width: 768px) {
   .form-row { grid-template-columns: 1fr; }
   .container { padding: 1rem; }
@@ -154,41 +85,32 @@ tr:hover td { background: rgba(255,255,255,0.02); }
 </style>
 </head>
 <body>
-
-<!-- LOGIN -->
 <div id="login-screen">
   <div class="login-box">
     <div class="login-logo">Stream<span>VHS</span></div>
-    <div class="login-sub">// PANEL DE ADMINISTRACIÓN</div>
+    <div class="login-sub">// PANEL DE ADMINISTRACION</div>
     <div class="field-label">CLAVE DE ADMINISTRADOR</div>
-    <input type="password" id="adminKey" placeholder="••••••••••••••••" onkeydown="if(event.key==='Enter')login()">
+    <input type="password" id="adminKey" placeholder="admin key" onkeydown="if(event.key==='Enter')login()">
     <button class="btn" onclick="login()">Acceder</button>
     <div class="error-msg" id="loginError"></div>
   </div>
 </div>
-
-<!-- MAIN -->
 <div id="main-screen">
   <header>
     <div class="header-logo">Stream<span>VHS</span></div>
     <div class="header-right">
       <div class="header-tag">ADMIN PANEL</div>
-      <button class="btn outline small" onclick="logout()">Cerrar sesión</button>
+      <button class="btn outline small" onclick="logout()">Cerrar sesion</button>
     </div>
   </header>
-
   <div class="container">
-
-    <!-- STATS -->
-    <div class="stats-grid" id="statsGrid">
+    <div class="stats-grid">
       <div class="stat-card total"><div class="stat-card-num" id="statTotal">-</div><div class="stat-card-label">Total licencias</div></div>
       <div class="stat-card active"><div class="stat-card-num" id="statActive">-</div><div class="stat-card-label">Activas</div></div>
       <div class="stat-card expired"><div class="stat-card-num" id="statExpired">-</div><div class="stat-card-label">Expiradas</div></div>
       <div class="stat-card monthly"><div class="stat-card-num" id="statMonthly">-</div><div class="stat-card-label">Mensuales</div></div>
       <div class="stat-card total"><div class="stat-card-num" id="statYearly">-</div><div class="stat-card-label">Anuales</div></div>
     </div>
-
-    <!-- ACTIVAR LICENCIA -->
     <div class="section-title">Activar licencia</div>
     <div class="activate-form">
       <div class="form-row">
@@ -199,53 +121,41 @@ tr:hover td { background: rgba(255,255,255,0.02); }
         <div class="form-group">
           <label>PLAN</label>
           <select id="newPlan">
-            <option value="monthly">Mensual — 0,99€/mes</option>
-            <option value="yearly">Anual — 9,99€/año</option>
+            <option value="monthly">Mensual 0,99 mes</option>
+            <option value="yearly">Anual 9,99 ano</option>
           </select>
         </div>
         <button class="btn small" onclick="activateLicense()" style="height:42px;margin-bottom:0">Activar</button>
       </div>
       <div class="activate-result" id="activateResult"></div>
     </div>
-
-    <!-- TABLA DE LICENCIAS -->
     <div class="table-header">
       <div class="section-title" style="margin-bottom:0">Licencias</div>
       <div style="display:flex;gap:1rem;align-items:center">
         <input type="text" class="search-box" placeholder="Buscar por email..." oninput="filterTable(this.value)">
-        <button class="btn outline small" onclick="loadData()">↻ Actualizar</button>
+        <button class="btn outline small" onclick="loadData()">Actualizar</button>
       </div>
     </div>
-
-    <table id="licensesTable">
+    <table>
       <thead>
         <tr>
-          <th>EMAIL</th>
-          <th>CLAVE</th>
-          <th>PLAN</th>
-          <th>ESTADO</th>
-          <th>DÍAS</th>
-          <th>EXPIRA</th>
-          <th>ACCIÓN</th>
+          <th>EMAIL</th><th>CLAVE</th><th>PLAN</th><th>ESTADO</th><th>DIAS</th><th>EXPIRA</th><th>ACCION</th>
         </tr>
       </thead>
       <tbody id="licensesBody">
         <tr><td colspan="7" style="text-align:center;color:var(--gray);padding:3rem">Cargando...</td></tr>
       </tbody>
     </table>
-
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
-
 <script>
-const SERVER = 'https://premises-unworldly-fascism.ngrok-free.app';
-let adminKey = '';
-let allLicenses = [];
+var SERVER = 'https://premises-unworldly-fascism.ngrok-free.dev';
+var adminKey = '';
+var allLicenses = [];
 
 function login() {
-  const key = document.getElementById('adminKey').value;
+  var key = document.getElementById('adminKey').value;
   if (!key) return;
   adminKey = key;
   loadData();
@@ -258,135 +168,115 @@ function logout() {
   document.getElementById('adminKey').value = '';
 }
 
-async function loadData() {
-  try {
-    const [statsRes, licensesRes] = await Promise.all([
-      fetch(SERVER + '/admin/stats', { headers: { 'x-admin-key': adminKey } }),
-      fetch(SERVER + '/admin/licenses', { headers: { 'x-admin-key': adminKey } })
-    ]);
-
-    if (statsRes.status === 401) {
+function loadData() {
+  var headers = { 'x-admin-key': adminKey };
+  var p1 = fetch(SERVER + '/admin/stats', { headers: headers });
+  var p2 = fetch(SERVER + '/admin/licenses', { headers: headers });
+  Promise.all([p1, p2]).then(function(responses) {
+    if (responses[0].status === 401) {
       document.getElementById('loginError').textContent = 'Clave incorrecta';
       return;
     }
-
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('main-screen').style.display = 'block';
-
-    const stats = await statsRes.json();
-    document.getElementById('statTotal').textContent = stats.total;
-    document.getElementById('statActive').textContent = stats.active;
-    document.getElementById('statExpired').textContent = stats.expired;
-    document.getElementById('statMonthly').textContent = stats.monthly;
-    document.getElementById('statYearly').textContent = stats.yearly;
-
-    const data = await licensesRes.json();
-    allLicenses = data.licenses || [];
-    renderTable(allLicenses);
-
-  } catch(e) {
+    responses[0].json().then(function(stats) {
+      document.getElementById('statTotal').textContent = stats.total;
+      document.getElementById('statActive').textContent = stats.active;
+      document.getElementById('statExpired').textContent = stats.expired;
+      document.getElementById('statMonthly').textContent = stats.monthly;
+      document.getElementById('statYearly').textContent = stats.yearly;
+    });
+    responses[1].json().then(function(data) {
+      allLicenses = data.licenses || [];
+      renderTable(allLicenses);
+    });
+  }).catch(function() {
     document.getElementById('loginError').textContent = 'Error conectando al servidor';
-  }
+  });
 }
 
 function renderTable(licenses) {
-  const tbody = document.getElementById('licensesBody');
+  var tbody = document.getElementById('licensesBody');
   if (!licenses.length) {
     tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--gray);padding:3rem">No hay licencias</td></tr>';
     return;
   }
-
-  tbody.innerHTML = licenses.map(l => {
-    const expired = l.is_expired;
-    const inactive = !l.active;
-    const statusBadge = inactive ? '<span class="badge inactive">INACTIVA</span>'
-      : expired ? '<span class="badge expired">EXPIRADA</span>'
-      : '<span class="badge active">ACTIVA</span>';
-    const planBadge = l.plan === 'monthly'
-      ? '<span class="badge monthly">MENSUAL</span>'
-      : '<span class="badge yearly">ANUAL</span>';
-    const days = inactive ? '-' : expired ? '0' : `${l.days_remaining}d`;
-    const daysColor = l.days_remaining < 7 ? 'color:var(--red)' : l.days_remaining < 30 ? 'color:var(--yellow)' : '';
-    const expiry = l.expires_at ? l.expires_at.substring(0,10) : '-';
-
-    return `<tr>
-      <td>${l.email}</td>
-      <td class="key-cell">${l.license_key}</td>
-      <td>${planBadge}</td>
-      <td>${statusBadge}</td>
-      <td class="days-cell" style="${daysColor}">${days}</td>
-      <td style="font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--gray)">${expiry}</td>
-      <td>
-        <button class="btn outline small" onclick="renewLicense('${l.email}','${l.plan}')" style="margin-right:4px">Renovar</button>
-        <button class="btn danger small" onclick="deactivateLicense('${l.email}')">Desactivar</button>
-      </td>
-    </tr>`;
-  }).join('');
+  var now = new Date();
+  var html = '';
+  for (var i = 0; i < licenses.length; i++) {
+    var l = licenses[i];
+    var expired = new Date(l.expires_at) < now;
+    var inactive = !l.active;
+    var statusBadge = inactive ? '<span class="badge inactive">INACTIVA</span>' : expired ? '<span class="badge expired">EXPIRADA</span>' : '<span class="badge active">ACTIVA</span>';
+    var planBadge = l.plan === 'monthly' ? '<span class="badge monthly">MENSUAL</span>' : '<span class="badge yearly">ANUAL</span>';
+    var days = inactive ? '-' : expired ? '0' : l.days_remaining + 'd';
+    var daysColor = l.days_remaining < 7 ? 'color:var(--red)' : l.days_remaining < 30 ? 'color:var(--yellow)' : '';
+    var expiry = l.expires_at ? l.expires_at.substring(0,10) : '-';
+    html += '<tr><td>' + l.email + '</td><td class="key-cell">' + l.license_key + '</td><td>' + planBadge + '</td><td>' + statusBadge + '</td><td class="days-cell" style="' + daysColor + '">' + days + '</td><td style="font-family:\'DM Mono\',monospace;font-size:0.75rem;color:var(--gray)">' + expiry + '</td><td><button class="btn outline small" onclick="renewLicense(\'' + l.email + '\',\'' + l.plan + '\')" style="margin-right:4px">Renovar</button><button class="btn danger small" onclick="deactivateLicense(\'' + l.email + '\')">Desactivar</button></td></tr>';
+  }
+  tbody.innerHTML = html;
 }
 
 function filterTable(query) {
-  const filtered = allLicenses.filter(l => l.email.toLowerCase().includes(query.toLowerCase()));
+  var filtered = allLicenses.filter(function(l) { return l.email.toLowerCase().indexOf(query.toLowerCase()) !== -1; });
   renderTable(filtered);
 }
 
-async function activateLicense() {
-  const email = document.getElementById('newEmail').value.trim();
-  const plan = document.getElementById('newPlan').value;
-  if (!email || !email.includes('@')) { showToast('Introduce un email válido', true); return; }
-
-  const res = await fetch(SERVER + '/admin/activate', {
+function activateLicense() {
+  var email = document.getElementById('newEmail').value.trim();
+  var plan = document.getElementById('newPlan').value;
+  if (!email || email.indexOf('@') === -1) { showToast('Introduce un email valido', true); return; }
+  fetch(SERVER + '/admin/activate', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'x-admin-key': adminKey },
-    body: JSON.stringify({ email, plan })
+    body: JSON.stringify({ email: email, plan: plan })
+  }).then(function(r) { return r.json(); }).then(function(data) {
+    if (data.success) {
+      var result = document.getElementById('activateResult');
+      result.style.display = 'block';
+      result.innerHTML = 'Licencia ' + (data.action === 'created' ? 'creada' : 'renovada') + '<br>Email: <strong>' + data.email + '</strong><br>Plan: <strong>' + (data.plan === 'monthly' ? 'Mensual' : 'Anual') + '</strong><br>Clave: <span class="key-display">' + data.license_key + '</span><br>Expira: <strong>' + data.expires_at.substring(0,10) + '</strong>';
+      document.getElementById('newEmail').value = '';
+      showToast('Licencia activada');
+      loadData();
+    } else {
+      showToast(data.error || 'Error activando', true);
+    }
   });
-  const data = await res.json();
-
-  if (data.success) {
-    const result = document.getElementById('activateResult');
-    result.style.display = 'block';
-    result.innerHTML = `
-      ✓ Licencia ${data.action === 'created' ? 'creada' : 'renovada'}<br>
-      Email: <strong>${data.email}</strong><br>
-      Plan: <strong>${data.plan === 'monthly' ? 'Mensual' : 'Anual'}</strong><br>
-      Clave: <span class="key-display">${data.license_key}</span><br>
-      Expira: <strong>${data.expires_at.substring(0,10)}</strong>
-    `;
-    document.getElementById('newEmail').value = '';
-    showToast('✓ Licencia activada');
-    loadData();
-  } else {
-    showToast(data.error || 'Error activando', true);
-  }
 }
 
-async function renewLicense(email, plan) {
-  const res = await fetch(SERVER + '/admin/activate', {
+function renewLicense(email, plan) {
+  fetch(SERVER + '/admin/activate', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'x-admin-key': adminKey },
-    body: JSON.stringify({ email, plan })
+    body: JSON.stringify({ email: email, plan: plan })
+  }).then(function(r) { return r.json(); }).then(function(data) {
+    if (data.success) { showToast('Renovada: ' + email); loadData(); }
   });
-  const data = await res.json();
-  if (data.success) { showToast('✓ Renovada: ' + email); loadData(); }
 }
 
-async function deactivateLicense(email) {
-  if (!confirm('¿Desactivar licencia de ' + email + '?')) return;
-  const res = await fetch(SERVER + '/admin/licenses/' + encodeURIComponent(email), {
+function deactivateLicense(email) {
+  if (!confirm('Desactivar licencia de ' + email + '?')) return;
+  fetch(SERVER + '/admin/licenses/' + encodeURIComponent(email), {
     method: 'DELETE',
     headers: { 'x-admin-key': adminKey }
+  }).then(function(r) { return r.json(); }).then(function(data) {
+    if (data.success) { showToast('Licencia desactivada'); loadData(); }
   });
-  const data = await res.json();
-  if (data.success) { showToast('Licencia desactivada'); loadData(); }
 }
 
 function showToast(msg, isError) {
-  const t = document.getElementById('toast');
+  var t = document.getElementById('toast');
   t.textContent = msg;
   t.style.background = isError ? 'var(--red)' : 'var(--green)';
   t.style.color = isError ? '#fff' : '#000';
   t.style.display = 'block';
-  setTimeout(() => t.style.display = 'none', 3000);
+  setTimeout(function() { t.style.display = 'none'; }, 3000);
 }
+
+document.getElementById('modal') && document.getElementById('modal').addEventListener('click', function(e) {
+  if (e.target === this) logout();
+});
 </script>
 </body>
 </html>
+
