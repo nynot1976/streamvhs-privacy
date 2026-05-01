@@ -10,7 +10,7 @@
 :root {
   --bg: #080808; --surface: #111; --card: #161616;
   --cyan: #00c8b4; --cyan2: #00e5ce; --white: #f0f0f0;
-  --gray: #888; --gray2: #333; --yellow: #ffc840;
+  --gray: #888; --gray2: #333;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -20,10 +20,10 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; a
 .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.1em; }
 .nav-logo span { color: var(--cyan); }
 .nav-links { display: flex; gap: 2rem; }
-.nav-links a { color: var(--gray); text-decoration: none; font-size: 0.9rem; letter-spacing: 0.05em; transition: color 0.2s; }
+.nav-links a { color: var(--gray); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
 .nav-links a:hover { color: var(--cyan); }
 .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 6rem 2rem 4rem; position: relative; overflow: hidden; }
-.hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 60%, rgba(0,200,180,0.06) 0%, transparent 70%), radial-gradient(ellipse 40% 30% at 20% 20%, rgba(0,200,180,0.03) 0%, transparent 60%); }
+.hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 60%, rgba(0,200,180,0.06) 0%, transparent 70%); }
 .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(0,200,180,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,200,180,0.04) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%); }
 .hero-content { position: relative; z-index: 1; max-width: 800px; }
 .hero-badge { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.3em; color: var(--cyan); border: 1px solid rgba(0,200,180,0.3); padding: 0.4rem 1rem; margin-bottom: 2rem; }
@@ -32,9 +32,9 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; a
 .hero-title .vhs::after { content: 'VHS'; position: absolute; left: 3px; top: 3px; color: rgba(255,68,68,0.3); z-index: -1; }
 .hero-sub { font-size: 1.1rem; color: var(--gray); margin-bottom: 3rem; line-height: 1.6; }
 .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-.btn-primary { display: inline-flex; align-items: center; gap: 0.6rem; background: var(--cyan); color: #000; padding: 1rem 2rem; font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 0.95rem; text-decoration: none; border: none; cursor: pointer; transition: all 0.2s; }
+.btn-primary { display: inline-flex; align-items: center; background: var(--cyan); color: #000; padding: 1rem 2rem; font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 0.95rem; text-decoration: none; border: none; cursor: pointer; transition: all 0.2s; }
 .btn-primary:hover { background: var(--cyan2); transform: translateY(-2px); }
-.btn-secondary { display: inline-flex; align-items: center; gap: 0.6rem; background: transparent; color: var(--white); padding: 1rem 2rem; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; text-decoration: none; border: 1px solid var(--gray2); cursor: pointer; transition: all 0.2s; }
+.btn-secondary { display: inline-flex; align-items: center; background: transparent; color: var(--white); padding: 1rem 2rem; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; text-decoration: none; border: 1px solid var(--gray2); cursor: pointer; transition: all 0.2s; }
 .btn-secondary:hover { border-color: var(--cyan); color: var(--cyan); }
 .hero-stats { display: flex; gap: 3rem; justify-content: center; margin-top: 4rem; padding-top: 3rem; border-top: 1px solid var(--gray2); }
 .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--cyan); }
@@ -72,13 +72,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; a
 .price-period { font-size: 0.85rem; color: var(--gray); margin-bottom: 2rem; }
 .price-features { list-style: none; margin-bottom: 2rem; }
 .price-features li { font-size: 0.9rem; color: var(--gray); padding: 0.5rem 0; border-bottom: 1px solid #1a1a1a; display: flex; align-items: center; gap: 0.6rem; }
-.price-features li::before { content: 'checkmark'; color: var(--cyan); font-weight: 500; }
-.device-selector { margin-bottom: 1.5rem; }
-.device-selector label { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--cyan); display: block; margin-bottom: 0.5rem; }
-.device-btns { display: flex; gap: 0.5rem; }
-.device-btn { flex: 1; padding: 0.6rem; background: var(--surface); border: 1px solid var(--gray2); color: var(--gray); font-family: 'DM Mono', monospace; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; text-align: center; }
-.device-btn:hover { border-color: var(--cyan); color: var(--cyan); }
-.device-btn.selected { border-color: var(--cyan); background: rgba(0,200,180,0.1); color: var(--cyan); }
+.price-features li::before { content: '✓'; color: var(--cyan); font-weight: 500; }
 .payment { padding: 6rem 3rem; background: var(--surface); border-top: 1px solid var(--gray2); }
 .payment-inner { max-width: 700px; margin: 0 auto; text-align: center; }
 .payment-methods { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin: 3rem 0; }
@@ -99,11 +93,9 @@ footer { padding: 3rem; border-top: 1px solid var(--gray2); display: flex; align
 .modal-sub { font-size: 0.85rem; color: var(--gray); margin-bottom: 2rem; }
 .modal input { width: 100%; background: var(--surface); border: 1px solid var(--gray2); color: var(--white); padding: 0.9rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; margin-bottom: 1rem; outline: none; transition: border-color 0.2s; }
 .modal input:focus { border-color: var(--cyan); }
-.modal-plan { background: var(--surface); border: 1px solid var(--cyan); padding: 1rem; margin-bottom: 1.5rem; }
-.modal-plan-row { display: flex; justify-content: space-between; align-items: center; }
+.modal-plan { background: var(--surface); border: 1px solid var(--cyan); padding: 1rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; }
 .modal-plan-name { font-weight: 500; }
 .modal-plan-price { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--cyan); }
-.modal-plan-devices { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--gray); margin-top: 0.3rem; }
 .modal-pay-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
 .modal-pay-btn { background: var(--surface); border: 1px solid var(--gray2); color: var(--white); padding: 0.8rem; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
 .modal-pay-btn:hover { border-color: var(--cyan); color: var(--cyan); }
@@ -207,15 +199,6 @@ footer { padding: 3rem; border-top: 1px solid var(--gray2); display: flex; align
         <li>Actualizaciones incluidas</li>
         <li>Hasta 4 dispositivos</li>
       </ul>
-      <div class="device-selector">
-        <label>NUMERO DE DISPOSITIVOS</label>
-        <div class="device-btns" id="devBtnsMonthly">
-          <div class="device-btn selected" onclick="selectDevice('monthly',1,this)">1</div>
-          <div class="device-btn" onclick="selectDevice('monthly',2,this)">2</div>
-          <div class="device-btn" onclick="selectDevice('monthly',3,this)">3</div>
-          <div class="device-btn" onclick="selectDevice('monthly',4,this)">4</div>
-        </div>
-      </div>
       <button class="download-btn" onclick="openModal('monthly')">Suscribirse mensualmente</button>
     </div>
     <div class="price-card featured">
@@ -227,7 +210,7 @@ footer { padding: 3rem; border-top: 1px solid var(--gray2); display: flex; align
         <li>Android + Windows</li>
         <li>Actualizaciones incluidas</li>
         <li>Hasta 4 dispositivos</li>
-      </ul></div>
+      </ul>
       <button class="download-btn" onclick="openModal('yearly')">Suscribirse anualmente</button>
     </div>
   </div>
@@ -239,7 +222,7 @@ footer { padding: 3rem; border-top: 1px solid var(--gray2); display: flex; align
     <h2 class="section-title" style="text-align:center">Paga como prefieras</h2>
     <div class="payment-methods">
       <div class="pay-method"><span class="pm-icon">💳</span> Tarjeta</div>
-      
+      <div class="pay-method"><span class="pm-icon">🅿️</span> PayPal</div>
       <div class="pay-method"><span class="pm-icon">🏦</span> Transferencia</div>
       <div class="pay-method"><span class="pm-icon">🪙</span> Crypto</div>
     </div>
@@ -261,11 +244,8 @@ footer { padding: 3rem; border-top: 1px solid var(--gray2); display: flex; align
     <div class="modal-title">Completar compra</div>
     <div class="modal-sub">Elige tu metodo de pago preferido</div>
     <div class="modal-plan">
-      <div class="modal-plan-row">
-        <div class="modal-plan-name" id="modal-plan-name">Plan mensual</div>
-        <div class="modal-plan-price" id="modal-plan-price">0,99EUR/mes</div>
-      </div>
-      <div class="modal-plan-devices" id="modal-plan-devices">1 dispositivo</div>
+      <div class="modal-plan-name" id="modal-plan-name">Plan mensual</div>
+      <div class="modal-plan-price" id="modal-plan-price">0,99EUR/mes</div>
     </div>
     <input type="email" id="modal-email" placeholder="Tu email (para recibir la licencia)">
     <div class="modal-pay-btns">
@@ -285,38 +265,16 @@ footer { padding: 3rem; border-top: 1px solid var(--gray2); display: flex; align
 </div>
 
 <script>
-var SERVER = 'http://streamvhs-license.ddns.net:3000';
 var currentPlan = 'monthly';
 var selectedPayMethod = '';
-var selectedDevices = { monthly: 1, yearly: 1 };
 var prices = { monthly: '0,99', yearly: '9,99' };
-
-// Cargar precios desde el servidor
-fetch(SERVER + '/prices').then(function(r) { return r.json(); }).then(function(data) {
-  if (data.price_monthly) {
-    prices.monthly = parseFloat(data.price_monthly).toFixed(2).replace('.',',');
-    prices.yearly = parseFloat(data.price_yearly).toFixed(2).replace('.',',');
-    document.getElementById('priceMonthlyDisplay').innerHTML = prices.monthly + '<span style="font-size:1.5rem">EUR</span>';
-    document.getElementById('priceYearlyDisplay').innerHTML = prices.yearly + '<span style="font-size:1.5rem">EUR</span>';
-  }
-}).catch(function() {});
-
-function selectDevice(plan, num, btn) {
-  selectedDevices[plan] = num;
-  var container = document.getElementById('devBtns' + (plan === 'monthly' ? 'Monthly' : 'Yearly'));
-  var btns = container.getElementsByClassName('device-btn');
-  for (var i = 0; i < btns.length; i++) btns[i].classList.remove('selected');
-  btn.classList.add('selected');
-}
 
 function openModal(plan) {
   currentPlan = plan;
-  var devices = selectedDevices[plan];
-  var price = plan === 'monthly' ? prices.monthly + 'EUR/mes' : prices.yearly + 'EUR/ano';
+  var price = plan === 'monthly' ? prices.monthly + ' EUR/mes' : prices.yearly + ' EUR/ano';
   var planName = plan === 'monthly' ? 'Plan mensual' : 'Plan anual';
   document.getElementById('modal-plan-name').textContent = planName;
   document.getElementById('modal-plan-price').textContent = price;
-  document.getElementById('modal-plan-devices').textContent = devices + (devices === 1 ? ' dispositivo' : ' dispositivos');
   document.getElementById('modal').classList.add('active');
   selectedPayMethod = '';
   var btns = document.getElementsByClassName('modal-pay-btn');
@@ -340,10 +298,9 @@ function confirmPurchase() {
   var email = document.getElementById('modal-email').value;
   if (!email || email.indexOf('@') === -1) { alert('Por favor introduce tu email'); return; }
   if (!selectedPayMethod) { alert('Por favor selecciona un metodo de pago'); return; }
-  var devices = selectedDevices[currentPlan];
-  var plan = currentPlan === 'monthly' ? 'Plan Mensual (' + prices.monthly + 'EUR/mes)' : 'Plan Anual (' + prices.yearly + 'EUR/ano)';
+  var plan = currentPlan === 'monthly' ? 'Plan Mensual (' + prices.monthly + ' EUR/mes)' : 'Plan Anual (' + prices.yearly + ' EUR/ano)';
   var subject = encodeURIComponent('Suscripcion StreamVHS - ' + plan);
-  var body = encodeURIComponent('Hola,\n\nQuiero suscribirme a StreamVHS.\n\nPlan: ' + plan + '\nDispositivos: ' + devices + '\nMetodo de pago: ' + selectedPayMethod + '\nEmail: ' + email + '\n\nGracias.');
+  var body = encodeURIComponent('Hola,\n\nQuiero suscribirme a StreamVHS.\n\nPlan: ' + plan + '\nMetodo de pago: ' + selectedPayMethod + '\nEmail: ' + email + '\n\nGracias.');
   window.location.href = 'mailto:nynot678@gmail.com?subject=' + subject + '&body=' + body;
   closeModal();
 }
